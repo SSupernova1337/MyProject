@@ -1,6 +1,15 @@
 'use strict';
 //1
-let numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?'); 
+let numberOfFilms; 
+
+function start(){
+	numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?'); 
+	while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)){
+		numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?');
+	} 
+
+}
+start();
 
 
 //2
@@ -13,29 +22,46 @@ let personalMovieDB = {
 };
 
 //3
-for (let i = 0; i < 2; i++){
-	let a = prompt('Один из последних просмотренных фильмов?',),
-		b = prompt('На сколько очените его?',);
+function rememberMyFilms () {
+	for (let i = 0; i < 2; i++){
+		let a = prompt('Один из последних просмотренных фильмов?',),
+			b = prompt('На сколько очените его?',);
+				if (a != null && b != null && a !='' & b != '' && a.length <50){
+					personalMovieDB.movies[a] = b;
+					console.log('done');
+				} else {
+					console.log('error');
+					i--;
+				}
+	}
+}
+rememberMyFilms();
+
+function detectPersonalLevel() {
+	if (personalMovieDB.count <= 10) { 
+		alert("Просмотрено довольно мало фильмов");
+	} else if (personalMovieDB.count <= 30) {
+		alert("Вы классический зритель");
+	} else if (personalMovieDB.count > 30) {
+		alert("Вы киноман");
+	} else {
+		alert('Произошла ошибка');
+	}
+}
+detectPersonalLevel();
+
+function showMyDB(hidden) {
+	if (!hidden) {
+		console.log(personalMovieDB);
+	}
 	
-			if (a != null && b != null && a !='' & b != '' && a.length <50){
-				personalMovieDB.movies[a] = b;
-				console.log('done');
-			} else {
-				console.log('error');
-				i--;
-			}
+	
 }
- 
+showMyDB(personalMovieDB.privat);
 
-
-if (personalMovieDB.count <= 10) { 
-	alert("Просмотрено довольно мало фильмов");
-} else if (personalMovieDB.count <= 30) {
-	alert("Вы классический зритель");
-} else if (personalMovieDB.count > 30) {
-	alert("Вы киноман");
-} else {
-	alert('Произошла ошибка');
+function writeYourGenres() {
+	for (let i = 1; i <= 3; i++ ){
+		personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+	}
 }
-
-
+writeYourGenres();
